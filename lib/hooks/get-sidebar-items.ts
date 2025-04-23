@@ -1,5 +1,4 @@
-import { Calendar, Home, List, MapPin, Search, Settings, User, Coffee } from "lucide-react"
-import api from "../axios"
+import { Calendar, Home, MapPin, Settings, User, Coffee } from "lucide-react"
 import { Role } from "../enums"
 import { store } from "../store"
 import { LucideIcon } from "lucide-react"

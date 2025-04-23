@@ -4,7 +4,6 @@ import { useState, useEffect } from 'react';
 import { useAppSelector } from '@/lib/hooks';
 import { 
   useGetMenusQuery,
-  useGetMenuByIdQuery,
   useCreateMenuMutation,
   useUpdateMenuMutation,
   useDeleteMenuMutation,
@@ -12,7 +11,6 @@ import {
 } from '@/lib/api/menuApi';
 import {
   useGetMenuTemplatesQuery,
-  useGetMenuTemplateByIdQuery,
   useGetTemplateItemsByTemplateQuery
 } from '@/lib/api/menuApi';
 import { useGetLocationsQuery } from '@/lib/api/locationsApi';
@@ -25,9 +23,6 @@ import {
   Menu, 
   CreateMenuDto, 
   UpdateMenuDto,
-  MenuTemplate,
-  TemplateItem,
-  MenuItemOverride
 } from '@/lib/types/menu';
 import { 
   Card, 
@@ -37,7 +32,6 @@ import {
   CardTitle 
 } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { 
   Dialog, 
@@ -46,7 +40,6 @@ import {
   DialogFooter, 
   DialogHeader, 
   DialogTitle, 
-  DialogTrigger 
 } from '@/components/ui/dialog';
 import { 
   Table, 
@@ -63,19 +56,12 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select';
-import {
-  Tabs,
-  TabsContent,
-  TabsList,
-  TabsTrigger,
-} from '@/components/ui/tabs';
 import { 
   Coffee, 
   Edit, 
   Trash2, 
   Plus,
   List,
-  ShoppingBag,
   LayoutTemplate,
   ArrowRight
 } from 'lucide-react';
@@ -91,7 +77,6 @@ export default function MenuPage() {
 
   // State for the selected menu
   const [selectedMenu, setSelectedMenu] = useState<Menu | null>(null);
-  const [selectedTab, setSelectedTab] = useState('menus');
   
   // State for form inputs
   const [locationId, setLocationId] = useState('');
@@ -110,10 +95,6 @@ export default function MenuPage() {
   const { data: locations = [] } = useGetLocationsQuery();
   const { data: menuTemplates = [] } = useGetMenuTemplatesQuery();
   
-  const { data: selectedMenuDetails } = useGetMenuByIdQuery(
-    selectedMenu?.id || 0, 
-    { skip: !selectedMenu || (!isViewItemsDialogOpen && !isEditDialogOpen) }
-  );
   
   const { data: menuItems = [] } = useGetMenuItemOverridesByMenuQuery(
     selectedMenu?.id || 0,
@@ -126,11 +107,6 @@ export default function MenuPage() {
     { skip: !selectedMenu?.templateId || !isViewItemsDialogOpen }
   );
 
-  // Get template details if needed
-  const { data: selectedTemplate } = useGetMenuTemplateByIdQuery(
-    selectedMenu?.templateId || 0,
-    { skip: !selectedMenu?.templateId }
-  );
 
   // RTK Query hooks for mutations
   const [createMenu, { isLoading: isCreating }] = useCreateMenuMutation();
@@ -155,7 +131,7 @@ export default function MenuPage() {
       <div className="container mx-auto py-8">
         <Alert variant="destructive">
           <AlertDescription>
-            You don't have permission to access this page.
+            You don&apos;t have permission to access this page.
           </AlertDescription>
         </Alert>
       </div>

@@ -4,7 +4,6 @@ import { useState, useEffect } from 'react';
 import { useAppSelector } from '@/lib/hooks';
 import { 
   useGetMenuTemplatesQuery,
-  useGetMenuTemplateByIdQuery,
   useCreateMenuTemplateMutation,
   useUpdateMenuTemplateMutation,
   useDeleteMenuTemplateMutation,
@@ -12,7 +11,6 @@ import {
 } from '@/lib/api/menuApi';
 import { useGetBrandsQuery } from '@/lib/api/brandsApi';
 import { 
-  selectTemplateLoading, 
   selectTemplateError 
 } from '@/lib/slices/menuTemplateSlice';
 import { selectCurrentUser } from '@/lib/slices/authSlice';
@@ -20,7 +18,6 @@ import {
   MenuTemplate, 
   CreateMenuTemplateDto, 
   UpdateMenuTemplateDto,
-  TemplateItem
 } from '@/lib/types/menu';
 import { 
   Card, 
@@ -40,7 +37,6 @@ import {
   DialogFooter, 
   DialogHeader, 
   DialogTitle, 
-  DialogTrigger 
 } from '@/components/ui/dialog';
 import { 
   Table, 
@@ -88,17 +84,12 @@ export default function MenuTemplatesPage() {
   const currentUser = useAppSelector(selectCurrentUser);
   
   // Get loading and error states from redux
-  const isLoading = useAppSelector(selectTemplateLoading);
   const templateError = useAppSelector(selectTemplateError);
   
   // RTK Query hooks for data fetching
   const { data: templates = [] } = useGetMenuTemplatesQuery();
   const { data: brands = [] } = useGetBrandsQuery();
   
-  const { data: selectedTemplateDetails } = useGetMenuTemplateByIdQuery(
-    selectedTemplate?.id || 0, 
-    { skip: !selectedTemplate || (!isViewItemsDialogOpen && !isEditDialogOpen) }
-  );
   
   const { data: templateItems = [] } = useGetTemplateItemsByTemplateQuery(
     selectedTemplate?.id || 0,
@@ -106,7 +97,7 @@ export default function MenuTemplatesPage() {
   );
 
   // RTK Query hooks for mutations
-  const [createMenuTemplate, { isLoading: isCreating }] = useCreateMenuTemplateMutation();
+  const [createMenuTemplate] = useCreateMenuTemplateMutation();
   const [updateMenuTemplate, { isLoading: isUpdating }] = useUpdateMenuTemplateMutation();
   const [deleteMenuTemplate, { isLoading: isDeleting }] = useDeleteMenuTemplateMutation();
 
@@ -127,7 +118,7 @@ export default function MenuTemplatesPage() {
       <div className="container mx-auto py-8">
         <Alert variant="destructive">
           <AlertDescription>
-            You don't have permission to access this page.
+            You don&apos;t have permission to access this page.
           </AlertDescription>
         </Alert>
       </div>
@@ -196,22 +187,6 @@ export default function MenuTemplatesPage() {
     } catch (err: any) {
       setError(err?.data?.message || 'Failed to delete menu template');
     }
-  };
-
-  const openEditDialog = (template: MenuTemplate) => {
-    setSelectedTemplate(template);
-    setName(template.name);
-    setIsEditDialogOpen(true);
-  };
-
-  const openDeleteDialog = (template: MenuTemplate) => {
-    setSelectedTemplate(template);
-    setIsDeleteDialogOpen(true);
-  };
-
-  const openViewItemsDialog = (template: MenuTemplate) => {
-    setSelectedTemplate(template);
-    setIsViewItemsDialogOpen(true);
   };
 
   // Find brand name for display

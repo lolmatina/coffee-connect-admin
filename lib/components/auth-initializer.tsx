@@ -1,8 +1,8 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { useAppDispatch, useAppSelector } from '@/lib/hooks';
-import { initializeAuthState, selectIsAuthenticated } from '@/lib/slices/authSlice';
+import { useAppDispatch } from '@/lib/hooks';
+import { initializeAuthState } from '@/lib/slices/authSlice';
 
 export function AuthInitializer() {
   const dispatch = useAppDispatch();

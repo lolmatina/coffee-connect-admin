@@ -9,7 +9,6 @@ import {
   useDeleteUserMutation,
   useAssignUserToBrandMutation,
   useAssignUserToLocationMutation,
-  GetUsersParams
 } from '@/lib/api/usersApi';
 import { useGetBrandsQuery } from '@/lib/api/brandsApi';
 import { useGetLocationsQuery } from '@/lib/api/locationsApi';
@@ -63,7 +62,6 @@ import {
 import { 
   Pencil, 
   Trash2, 
-  UserPlus, 
   Store, 
   MapPin, 
   User as UserIcon,
@@ -547,7 +545,7 @@ export default function UsersPage() {
           <DialogHeader>
             <DialogTitle>Confirm Deletion</DialogTitle>
             <DialogDescription>
-              Are you sure you want to delete the user "{selectedUser?.UserProfile[0].firstName} {selectedUser?.UserProfile[0].lastName}"? This action cannot be undone.
+              Are you sure you want to delete the user &quot;{selectedUser?.UserProfile[0].firstName} {selectedUser?.UserProfile[0].lastName}&quot;? This action cannot be undone.
             </DialogDescription>
           </DialogHeader>
           

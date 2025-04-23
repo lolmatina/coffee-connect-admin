@@ -62,7 +62,7 @@ export const menuApi = createApi({
     
     getMenuTemplateById: builder.query<MenuTemplate, number>({
       query: (id) => `/menu/templates/${id}`,
-      providesTags: (result, error, id) => [{ type: 'MenuTemplate', id }],
+      providesTags: (_, __, id) => [{ type: 'MenuTemplate', id }],
     }),
     
     createMenuTemplate: builder.mutation<MenuTemplate, CreateMenuTemplateDto>({
@@ -165,7 +165,7 @@ export const menuApi = createApi({
     
     getMenuByLocation: builder.query<Menu, number>({
       query: (locationId) => `/menu/location/${locationId}`,
-      providesTags: (result, error, locationId) => [
+      providesTags: (result, _, __) => [
         { type: 'Menu', id: result?.id },
         { type: 'Menus', id: 'LIST' }
       ],

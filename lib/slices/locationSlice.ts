@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { Location, LocationState, LocationStaff } from '../types';
+import { Location, LocationState } from '../types';
 import { locationsApi } from '../api/locationsApi';
 import { RootState } from '../store';
 

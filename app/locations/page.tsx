@@ -22,8 +22,6 @@ import {
   Location, 
   CreateLocationDto, 
   UpdateLocationDto, 
-  UserRole,
-  LocationStaff
 } from '@/lib/types';
 import { 
   Card, 
@@ -59,14 +57,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select';
-import {
-  Tabs,
-  TabsContent,
-  TabsList,
-  TabsTrigger,
-} from '@/components/ui/tabs';
 import { 
-  MapPin, 
   Edit, 
   Trash2, 
   Plus,
@@ -109,10 +100,6 @@ export default function LocationsPage() {
   const { data: locations = [] } = useGetLocationsQuery();
   const { data: brands = [] } = useGetBrandsQuery();
   const { data: users = [] } = useGetUsersQuery({ roleFilter: 'COFFEE_SHOP_MANAGER' });
-  const { data: selectedLocationDetails } = useGetLocationByIdQuery(
-    selectedLocation?.id || 0, 
-    { skip: !selectedLocation || (!isViewStaffDialogOpen && !isEditDialogOpen) }
-  );
   const { data: locationStaff = [] } = useGetLocationStaffQuery(
     selectedLocation?.id || 0,
     { skip: !selectedLocation || !isViewStaffDialogOpen }
@@ -134,7 +121,7 @@ export default function LocationsPage() {
       <div className="container mx-auto py-8">
         <Alert variant="destructive">
           <AlertDescription>
-            You don't have permission to access this page.
+            You don&apos;t have permission to access this page.
           </AlertDescription>
         </Alert>
       </div>
@@ -277,7 +264,6 @@ export default function LocationsPage() {
   };
 
   const openViewStaffDialog = (location: Location) => {
-    console.log(locationStaff);
     setSelectedLocation(location);
     setIsViewStaffDialogOpen(true);
   };
@@ -476,7 +462,7 @@ export default function LocationsPage() {
             </div>
           ) : locations.length === 0 ? (
             <div className="text-center py-8 text-gray-500">
-              No locations found. Create your first location by clicking the "Add Location" button.
+              No locations found. Create your first location by clicking the &quot;Add Location&quot; button.
             </div>
           ) : (
             <Table>
@@ -762,7 +748,7 @@ export default function LocationsPage() {
           <DialogHeader>
             <DialogTitle>Confirm Deletion</DialogTitle>
             <DialogDescription>
-              Are you sure you want to delete the location "{selectedLocation?.name}"? This action cannot be undone.
+              Are you sure you want to delete the location &quot;{selectedLocation?.name}&quot;? This action cannot be undone.
             </DialogDescription>
           </DialogHeader>
 

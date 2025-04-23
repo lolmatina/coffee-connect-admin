@@ -7,7 +7,6 @@ import Link from 'next/link';
 import { 
   useGetMenuTemplateByIdQuery,
   useGetTemplateItemsByTemplateQuery,
-  useGetTemplateItemByIdQuery,
   useCreateTemplateItemMutation,
   useUpdateTemplateItemMutation,
   useDeleteTemplateItemMutation
@@ -19,10 +18,8 @@ import {
 import { selectCurrentUser } from '@/lib/slices/authSlice';
 import { 
   TemplateItem, 
-  MenuTemplate, 
   CreateTemplateItemDto, 
   UpdateTemplateItemDto,
-  TemplateItemVariant,
   CreateTemplateItemVariantDto
 } from '@/lib/types/menu';
 import { 
@@ -46,15 +43,6 @@ import {
   DialogHeader, 
   DialogTitle
 } from '@/components/ui/dialog';
-import { 
-  Table, 
-  TableBody, 
-  TableCaption, 
-  TableCell, 
-  TableHead, 
-  TableHeader, 
-  TableRow 
-} from '@/components/ui/table';
 import {
   Select,
   SelectContent,
@@ -69,14 +57,12 @@ import {
   AccordionTrigger,
 } from '@/components/ui/accordion';
 import { 
-  Coffee, 
   Edit, 
   Trash2, 
   Plus,
   ArrowLeft,
   DollarSign,
   List,
-  Tag
 } from 'lucide-react';
 import { Alert, AlertDescription } from '@/components/ui/alert';
 import { LayoutTemplate } from 'lucide-react';
@@ -115,11 +101,7 @@ export default function TemplateItemsPage() {
   // RTK Query hooks for data fetching
   const { data: template, isLoading: isTemplateLoading } = useGetMenuTemplateByIdQuery(templateId);
   const { data: items = [], isLoading: isItemsLoading } = useGetTemplateItemsByTemplateQuery(templateId);
-  
-  const { data: selectedItemDetails } = useGetTemplateItemByIdQuery(
-    selectedItem?.id || 0, 
-    { skip: !selectedItem || !isEditDialogOpen }
-  );
+
 
   // RTK Query hooks for mutations
   const [createTemplateItem, { isLoading: isCreating }] = useCreateTemplateItemMutation();
@@ -150,7 +132,7 @@ export default function TemplateItemsPage() {
       <div className="container mx-auto py-8">
         <Alert variant="destructive">
           <AlertDescription>
-            You don't have permission to access this page.
+            You don&apos;t have permission to access this page.
           </AlertDescription>
         </Alert>
       </div>

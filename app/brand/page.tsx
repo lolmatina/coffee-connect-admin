@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { useAppSelector } from '@/lib/hooks';
 import { 
   useGetBrandsQuery, 
@@ -15,7 +15,6 @@ import {
   Card, 
   CardContent, 
   CardDescription, 
-  CardFooter, 
   CardHeader, 
   CardTitle 
 } from '@/components/ui/card';
@@ -234,7 +233,7 @@ export default function BrandsPage() {
             </div>
           ) : brands.length === 0 ? (
             <div className="text-center py-8 text-gray-500">
-              No brands found. Create your first brand by clicking the "Add Brand" button.
+              No brands found. Create your first brand by clicking the &quot;Add Brand&quot; button.
             </div>
           ) : (
             <Table>
@@ -331,7 +330,7 @@ export default function BrandsPage() {
           <DialogHeader>
             <DialogTitle>Confirm Deletion</DialogTitle>
             <DialogDescription>
-              Are you sure you want to delete the brand "{selectedBrand?.name}"? This action cannot be undone.
+              Are you sure you want to delete the brand &quot;{selectedBrand?.name}&quot;? This action cannot be undone.
             </DialogDescription>
           </DialogHeader>
           {error && (
