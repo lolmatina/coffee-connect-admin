@@ -3,7 +3,7 @@ import { RootState } from '../store';
 
 // Create the API base query with automatic token inclusion
 export const baseQuery = fetchBaseQuery({
-  baseUrl: process.env.REACT_APP_API_URL || 'http://localhost:8000',
+  baseUrl: process.env.NEXT_PUBLIC_API_BASE_URL || 'http://localhost:8000',
   prepareHeaders: (headers, { getState }) => {
     // Get the token from the auth state
     const token = (getState() as RootState).auth.token;
