@@ -1,0 +1,9 @@
+export enum Role {
+    SUPER_ADMIN,
+    COFFEE_SHOP_OWNER,
+    COFFEE_SHOP_STAFF,
+    COFFEE_SHOP_MANAGER,
+}
+
+
+
